@@ -1,10 +1,20 @@
+import DetailsOrEdit from '../components/DetailsOrEdit';
+import LogInOrCreate from './componentes/LoginOrCreate';
+import Reviews from '../components/Reviews';
+import Search from '../components/Security';
 
-import './App.css';
 
 function App() {
   return (
     <div id="App">
-    
+      <div id="left">
+        <LogInOrCreate />
+        <Search />
+        <Reviews />
+      </div>
+      <div id="right">
+        <DetailsOrEdit />
+      </div>
     </div>
   );
 }
