@@ -1,7 +1,6 @@
-import DetailsOrEdit from '../components/DetailsOrEdit';
-import LogInOrCreate from './componentes/LoginOrCreate';
-import Reviews from '../components/Reviews';
-import Search from '../components/Security';
+import DetailsOrEdit from './components/DetailsOrEdit';
+import LogInOrCreate from './components/LogInOrCreate';
+import Search from './components/Security';
 
 
 function App() {
@@ -10,7 +9,6 @@ function App() {
       <div id="left">
         <LogInOrCreate />
         <Search />
-        <Reviews />
       </div>
       <div id="right">
         <DetailsOrEdit />
