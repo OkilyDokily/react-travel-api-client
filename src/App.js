@@ -1,13 +1,13 @@
 import DetailsOrEdit from './components/DetailsOrEdit';
-import LogInOrCreate from './components/LogInOrCreate';
-import Search from './components/Security';
+import CreateOrSecurity from './components/CreateOrSecurity';
+import Search from './components/Search';
 
 
 function App() {
   return (
     <div id="App">
       <div id="left">
-        <LogInOrCreate />
+        <CreateOrSecurity />
         <Search />
       </div>
       <div id="right">

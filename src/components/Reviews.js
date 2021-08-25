@@ -8,12 +8,11 @@ Reviews.propTypes = {
 
 function Reviews(props) {
 
-
     return (
         <div>
             {
                 props.reviews.map(review => (
-                    <div key={review.id}>
+                    <div key={review.id} >
                         <h3>{review.name}</h3>
                         <p>{review.comment}</p>
                     </div>

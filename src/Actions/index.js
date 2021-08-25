@@ -10,3 +10,12 @@ export function logIn(user,password){
         }
     )
 }
+
+export function details(details){
+    return (
+        {
+            type: a.DETAILS,
+            details
+        }
+    )
+}

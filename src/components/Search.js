@@ -11,21 +11,24 @@ function Search() {
     const [reviews, setReviews] = useState([]);
 
     function search(e) {
+        let country = e.target.country.value;
+        if (country === "") country = "%00";
+        let city = e.target.city.value;
+        if (city === "") city = "%00";
+        let option = e.target.options.value;
+        if (option === "") option = "%00";
+      
 
-        fetch('http:localhost:5004/api/reviews?country=' + e.target.country.value + "city=" + e.target.city.value + "option=" + e.target.options.value, { method: "GET" })
+        console.log('http://localhost:5004/api/reviews?country=' + country + "&city=" + city + "&option=" + option);
+        e.preventDefault();
+        fetch('http://localhost:5004/api/reviews?country=' + country + "&city=" + city + "&option=" + option, { method: "GET", mode: "no-cors" })
             .then(
-                response => response.json().then(result => {
+                response => response.json(result => {
                     console.log(reviews);
                     setReviews(result);
                 })
             );
     }
-
-
-    useEffect(() => {
-
-    });
-
 
     return (
         <div>

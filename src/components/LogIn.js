@@ -14,7 +14,7 @@ function LogIn(props) {
             "password": e.target.password.value,
         };
 
-        fetch("http://localhost:5004/api/reviews", {
+        fetch("http://localhost:5004/api/security/login", {
             method: "POST", headers: {
                 'Content-Type': 'application/json',
             },
@@ -27,17 +27,21 @@ function LogIn(props) {
     }
 
     return (
-        <form onSubmit="handleSubmit">
-            <div className="form-group">
-                <label htmlFor="exampleInputUser1">User</label>
-                <input name="user" className="form-control" id="exampleInputUser1" placeholder="Enter User" />
-            </div>
-            <div className="form-group">
-                <label htmlFor="exampleInputPassword1">Password</label>
-                <input name="password" type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
-            </div>
-            <button type="submit" className="btn btn-primary">Submit</button>
-        </form>
+        <div>
+            <p>Log in to create your own reviews.</p>
+            <form onSubmit={handleSubmit}>
+                <div className="form-group">
+                    <label htmlFor="exampleInputUser1">User</label>
+                    <input name="user" className="form-control" id="exampleInputUser1" placeholder="Enter User" />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="exampleInputPassword1">Password</label>
+                    <input name="password" type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
+                </div>
+                <button type="submit" className="btn btn-primary">Submit</button>
+            </form>
+        </div>
+       
     );
 }
 
