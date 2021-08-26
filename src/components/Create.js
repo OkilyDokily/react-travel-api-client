@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import * as Cookies from './getCookieHelper.js';
 
 Create.propTypes = {
 
@@ -9,7 +10,7 @@ function Create(props) {
 
     function create(e) {
         e.preventDefault();
-        const cookie = getCookie("Bearer");
+        const cookie = Cookies.getCookie("CookieKeyJWT");
 
         let body = {
             "country": e.target.country.value,
@@ -26,13 +27,7 @@ function Create(props) {
 
     }
 
-    function getCookie(name) {
-        function escape(s) { return s.replace(/([.*+?\^$(){}|\[\]\/\\])/g, '\\$1'); }
-        var match = document.cookie.match(RegExp('(?:^|;\\s*)' + escape(name) + '=([^;]*)'));
-        return match ? match[1] : null;
-        //Thank you John S
-        //https://stackoverflow.com/questions/10730362/get-cookie-by-name
-    }
+    
 
     return (
         <form onSubmit={create}>

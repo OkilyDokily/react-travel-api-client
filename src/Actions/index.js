@@ -1,12 +1,11 @@
 import * as a from './ActionTypes'
 
 
-export function logIn(user,password){
+export function logIn(user){
     return (
         {
             type: a.LOG_IN,
             user,
-            password
         }
     )
 }

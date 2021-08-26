@@ -12,22 +12,22 @@ function Search() {
 
     function search(e) {
         let country = e.target.country.value;
-        if (country === "") country = "%00";
         let city = e.target.city.value;
-        if (city === "") city = "%00";
         let option = e.target.options.value;
-        if (option === "") option = "%00";
-      
-
-        console.log('http://localhost:5004/api/reviews?country=' + country + "&city=" + city + "&option=" + option);
+     
         e.preventDefault();
-        fetch('http://localhost:5004/api/reviews?country=' + country + "&city=" + city + "&option=" + option, { method: "GET", mode: "no-cors" })
+        fetch('http://localhost:5004/api/reviews?country=' + country + "&city=" + city + "&option=" + option, { method: "GET", mode: "cors", header: { "Content-Type": "application/json" } })
             .then(
-                response => response.json(result => {
-                    console.log(reviews);
-                    setReviews(result);
+                response => {
+                    if (response.status === 200) {
+                        return response.json().then(result => {
+                            console.log(result);
+                            setReviews(result);   
+                        });
+                    }
+                }).catch(error => {
+                    console.log(error);
                 })
-            );
     }
 
     return (

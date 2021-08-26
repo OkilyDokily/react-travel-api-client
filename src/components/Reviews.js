@@ -10,14 +10,31 @@ function Reviews(props) {
 
     return (
         <div>
-            {
-                props.reviews.map(review => (
-                    <div key={review.id} >
-                        <h3>{review.name}</h3>
-                        <p>{review.comment}</p>
-                    </div>
-                ))
-            }
+            <table>
+                <thead>
+                    <tr>
+                        <th>ReviewId</th>
+                        <th>Username</th>
+                        <th>Rating</th>
+                        <th>City</th>
+                        <th>Country</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {props.reviews.map(review => {
+                        return (
+                            <tr key={review.reviewId} >
+                                <td>{review.reviewId}</td>
+                                <td>{review.userName}</td>
+                                <td>{review.rating}</td>
+                                <td>{review.city}</td>
+                                <td>{review.country}</td>
+                            </tr>
+                        )
+                    })}
+                </tbody>
+            </table>
+
         </div>
     );
 }

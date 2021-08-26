@@ -1,16 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import * as actions from '../Actions/index.js';
 
 LogIn.propTypes = {
 
 };
 
 function LogIn(props) {
+    const dispatch = useDispatch();
     function handleSubmit(e) {
         e.preventDefault();
-
+       
         let body = {
-            "user": e.target.user.value,
+            "name": e.target.user.value,
             "password": e.target.password.value,
         };
 
@@ -18,11 +21,13 @@ function LogIn(props) {
             method: "POST", headers: {
                 'Content-Type': 'application/json',
             },
-            body: body
-        }).then(response => response.json(result => {
-            document.cookie = "CookieKeyJWT=" + result + ";"
+            body: JSON.stringify(body)
+        }).then(response => response.json().then(result => {
+            document.cookie = "CookieKeyJWT=Bearer " + result.token + ";"
+            dispatch(actions.logIn("karl"))
             console.log(result)
         }))
+        .catch(error => console.error(error));
 
     }
 
