@@ -1,12 +1,21 @@
 import React from 'react';
 import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
+import * as actions from '../Actions/index';
 
 Reviews.propTypes = {
 
 };
 
 function Reviews(props) {
+
+    let dispatch = useDispatch();
+
+    function selectDetails(review) {
+        //e.preventDefault();
+        dispatch(actions.details(review));
+    }
 
     return (
         <div>
@@ -23,7 +32,7 @@ function Reviews(props) {
                 <tbody>
                     {props.reviews.map(review => {
                         return (
-                            <tr key={review.reviewId} >
+                            <tr key={review.reviewId} onClick={() => selectDetails(review)}>
                                 <td>{review.reviewId}</td>
                                 <td>{review.userName}</td>
                                 <td>{review.rating}</td>

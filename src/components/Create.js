@@ -1,33 +1,41 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as Cookies from './getCookieHelper.js';
+import { useSelector } from 'react-redux';
 
 Create.propTypes = {
 
 };
 
 function Create(props) {
-
+    let cookie = useSelector(state => state.security.cookie);
+    let user = useSelector(state => state.security.user);
     function create(e) {
+
         e.preventDefault();
-        const cookie = Cookies.getCookie("CookieKeyJWT");
-
+        //const cookie = Cookies.getCookie("CookieKeyJWT");
+        console.log(user)
+        console.log(e.target.country.value)
+        console.log(e.target.city.value)
+        console.log(e.target.rating.value)
         let body = {
-            "country": e.target.country.value,
-            "city": e.target.city.value,
-            "rating": e.target.rating.value
+            "UserName": user,
+            "Country": e.target.country.value,
+            "City": e.target.city.value,
+            "Rating": e.target.rating.value
         };
-
+        console.log(JSON.stringify(body));
         fetch("http://localhost:5004/api/reviews", {
-            method: "POST", headers: {
+            method: "POST", mode:"cors" , headers: {
                 'Content-Type': 'application/json',
-                'Authorization': "Bearer " + cookie,
+                'Authorization': cookie,
             },
-            body:body}).then();
+            body: JSON.stringify(body)
+        }).then().catch(err => console.log(err));
 
     }
 
-    
+
 
     return (
         <form onSubmit={create}>

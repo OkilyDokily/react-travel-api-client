@@ -23,9 +23,8 @@ function LogIn(props) {
             },
             body: JSON.stringify(body)
         }).then(response => response.json().then(result => {
-            document.cookie = "CookieKeyJWT=Bearer " + result.token + ";"
-            dispatch(actions.logIn("karl"))
-            console.log(result)
+            document.cookie = "CookieKeyJWT=Bearer " + result.token 
+            dispatch(actions.logIn("karl", "Bearer " + result.token))
         }))
         .catch(error => console.error(error));
 

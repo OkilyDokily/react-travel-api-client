@@ -6,23 +6,22 @@ import { useEffect, useState } from 'react';
 Search.propTypes = {
 
 };
-//country = { country } & city={ city }& option={ option } "
+
 function Search() {
     const [reviews, setReviews] = useState([]);
 
-    function search(e) {
-        let country = e.target.country.value;
-        let city = e.target.city.value;
-        let option = e.target.options.value;
-     
-        e.preventDefault();
+    useEffect(() => {
+        search("","","");
+    }, []);
+
+    function search(country, city, option) {
         fetch('http://localhost:5004/api/reviews?country=' + country + "&city=" + city + "&option=" + option, { method: "GET", mode: "cors", header: { "Content-Type": "application/json" } })
             .then(
                 response => {
                     if (response.status === 200) {
                         return response.json().then(result => {
                             console.log(result);
-                            setReviews(result);   
+                            setReviews(result);
                         });
                     }
                 }).catch(error => {
@@ -30,9 +29,18 @@ function Search() {
                 })
     }
 
+    function searchClick(e) {
+        e.preventDefault();
+        let country = e.target.country.value;
+        let city = e.target.city.value;
+        let option = e.target.options.value;
+        search(country, city, option);
+         
+    }
+
     return (
         <div>
-            <form onSubmit={search}>
+            <form onSubmit={searchClick}>
                 <div>
                     <label>City</label>
                     <input name="city" type="text" />
@@ -45,8 +53,8 @@ function Search() {
                     <label>Rating</label>
                     <select name="options">
                         <option value="">Select</option>
-                        <option value="1">Rating</option>
-                        <option value="2">Option 2</option>
+                        <option value="rating">Rating</option>
+                        <option value="number">Number</option>
                     </select>
                 </div>
                 <button type="submit">Search</button>
