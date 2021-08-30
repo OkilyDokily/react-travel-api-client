@@ -1,0 +1,36 @@
+button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  border-radius: 8%;
+}
+
+body{
+    background-color: #4CAF50;
+    color:darkgreen;
+}
+
+form {
+    display:flex;
+    /* align-items: center; */
+    margin: 0 0 0 0;
+    justify-content: space-between;
+}
+
+input{
+    margin-top: 3px;
+    margin-bottom: 5px;
+    border-radius: 5%;
+}
+
+label{
+    display: block;
+}
+
+ /* thank you https://www.w3schools.com/css/css3_buttons.asp */

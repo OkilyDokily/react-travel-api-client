@@ -12,6 +12,16 @@ export function logIn(user,cookie){
     )
 }
 
+export function logOut() {
+
+    return (
+        {
+            type: a.LOG_OUT,
+
+        }
+    )
+}
+
 export function details(details){
     return (
         {

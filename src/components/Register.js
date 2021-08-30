@@ -37,6 +37,7 @@ function Register(props) {
                 <input name="password" type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
             </div>
             <button type="submit" className="btn btn-primary">Submit</button>
+            <button onClick={props.toggle}>Go to Login</button>
         </form>
     );
 }

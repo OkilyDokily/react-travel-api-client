@@ -32,7 +32,6 @@ function LogIn(props) {
 
     return (
         <div>
-            <p>Log in to create your own reviews.</p>
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="exampleInputUser1">User</label>
@@ -43,6 +42,7 @@ function LogIn(props) {
                     <input name="password" type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
                 </div>
                 <button type="submit" className="btn btn-primary">Submit</button>
+                <button onClick={props.toggle}>Register instead</button>
             </form>
         </div>
        

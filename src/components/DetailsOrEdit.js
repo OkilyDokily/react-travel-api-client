@@ -11,10 +11,25 @@ function DetailsOrEdit(props) {
     let [showDetails, toggleDetails] = useState(true);
 
     let details = useSelector(state => state.interface.details);
-
-    function edit() {
-
-        fetch('http:localhost:5504/api/reviews/' + details.id, { method: "PUT" }).then();
+    let cookie = useSelector(state => state.security.cookie);
+    //let user = useSelector(state => state.security.user);
+    function edit(e) {
+        e.preventDefault();
+        let body = {
+            "ReviewId": e.target.reviewId.value,
+            "UserName": e.target.userName.value,
+            "Country": e.target.country.value,
+            "City": e.target.city.value,
+            "Rating": e.target.rating.value
+        };
+        console.log(e.target.reviewId.value + "dsafsdafasdfasd");
+        fetch("http://localhost:5004/api/reviews/" + e.target.reviewId.value, {
+            method: "PUT", mode: "cors", headers: {
+                'Content-Type': 'application/json',
+                'Authorization': cookie,
+            },
+            body: JSON.stringify(body)
+        }).then().catch(err => console.log(err));
     }
 
 
@@ -23,7 +38,7 @@ function DetailsOrEdit(props) {
             <div>
                 <div>
                     <label>ReviewId</label>
-                    <label>{details.ReviewId}</label>
+                    <label>{details.reviewId}</label>
                 </div>
                 <div>
                     <label>Username</label>
@@ -48,21 +63,26 @@ function DetailsOrEdit(props) {
 
     else if (!showDetails && details) {
         return (
-            <form>
-                <input type="hidden" value={details.ReviewId}></input>
+            <form onSubmit={edit}>
+                <div>
+                    <label>ReviewId</label>
+                    <label>{details.ReviewId}</label>
+                    <input type="hidden" name="reviewId" value={details.reviewId} />
+                </div>
                 <div>
                     <label>Username</label>
-                    <input type="text" value={details.userName} />
+                    <label>{details.userName}</label>
+                    <input type="hidden" name="userName" value={details.userName} />
                 </div>
                 <div>
                     <label>Country</label>
-                    <input type="text" value={details.country} />
+                    <input type="text" name="country" defaultValue={details.country} />
                 </div>
                 <div>
                     <label>City</label>
-                    <input type="text" value={details.rating} />
+                    <input name="city" type="text" defaultValue={details.city} />
                 </div>
-                <select>
+                <select name="rating" defaultValue={details.rating}>
                     <option value="0">0</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -70,7 +90,7 @@ function DetailsOrEdit(props) {
                     <option value="4">4</option>
                     <option value="5">5</option>
                 </select>
-                <button onClick={edit}>Edit</button>
+                <button type="submit">Edit</button>
                 <button onClick={() => toggleDetails(!showDetails)}>See Details</button>
             </form>
         )

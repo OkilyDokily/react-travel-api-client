@@ -18,18 +18,16 @@ function Security(props) {
     if(state){
     return (
         <div>
-            <p>Log In</p>
-            <LogIn/>
-            <button onClick={toggle}>Register instead</button>
+            <LogIn toggle={toggle}/>
+            
         </div> 
     );
     }
     else{
         return(
             <div>
-                <p>Register</p>
-                <Register />
-                <button onClick={toggle}>Go to Login</button>
+                <Register toggle={toggle} />
+                
             </div>
         );
     }
