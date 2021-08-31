@@ -13,7 +13,7 @@ button {
 
 body{
     background-color: #4CAF50;
-    color:darkgreen;
+    color:black;
 }
 
 form {
@@ -32,5 +32,8 @@ input{
 label{
     display: block;
 }
+
+
+
 
  /* thank you https://www.w3schools.com/css/css3_buttons.asp */

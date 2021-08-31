@@ -21,6 +21,7 @@ function App() {
 
   const Main = styled.div`
   display: flex;
+  box-sizing: border-box;
   background-color: brown;
   align-items: center;
 `;
@@ -39,11 +40,12 @@ function App() {
   background-color: green;
 `;
 
-  const Right = styled.div`
-  width: 25%;
-  text-align: center;
-  background-color: green;
-`;
+ 
+
+  const Padding = styled.div`
+    padding: 10px;
+    width: 100%;
+  `;
 
   return (
     <div id="App">
@@ -59,11 +61,7 @@ function App() {
             <Search />
           </Border>
         </Left>
-        <Right>
-          <Border margin="10px">
-            <DetailsOrEdit />
-          </Border>
-        </Right>
+        <DetailsOrEdit />
       </Main>
     </div>
   );
