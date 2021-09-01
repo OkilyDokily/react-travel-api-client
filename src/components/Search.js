@@ -2,16 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Reviews from './Reviews';
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux'
+import * as actions from '../Actions/index'
 
 Search.propTypes = {
 
 };
 
 function Search() {
-    const [reviews, setReviews] = useState([]);
 
+    let dispatch = useDispatch();
+    let reviews = useSelector(state => state.interface.reviews);
     useEffect(() => {
-        search("","","");
+        search("", "", "");
     }, []);
 
     function search(country, city, option) {
@@ -21,7 +24,7 @@ function Search() {
                     if (response.status === 200) {
                         return response.json().then(result => {
                             console.log(result);
-                            setReviews(result);
+                            dispatch(actions.reviews(result))
                         });
                     }
                 }).catch(error => {
@@ -35,20 +38,37 @@ function Search() {
         let city = e.target.city.value;
         let option = e.target.options.value;
         search(country, city, option);
-         
+    }
+
+    function getRandom() {
+        fetch('http://localhost:5004/api/reviews/random', { method: "GET", mode: "cors", headers: { "Content-Type": "text/plain" } })
+            .then(
+                response => {
+                    if (response.status === 200) {
+                        return response.text().then(function (data) {
+                            console.log(data, "random");
+                            dispatch(actions.details(response.data))
+                        })
+                    };
+
+                }
+            ).catch(error => {
+                console.log(error);
+            })
     }
 
     return (
         <div>
             <form onSubmit={searchClick}>
                 <div>
-                    <label>City</label>
-                    <input name="city" type="text" />
-                </div>
-                <div>
                     <label>Country</label>
                     <input name="country" type="text" />
                 </div>
+                <div>
+                    <label>City</label>
+                    <input name="city" type="text" />
+                </div>
+
                 <div>
                     <label>Rating</label>
                     <select name="options">
@@ -58,8 +78,12 @@ function Search() {
                     </select>
                 </div>
                 <button type="submit">Search</button>
+
             </form>
-            <Reviews reviews={reviews} />
+            <button onClick={getRandom}>Get Random Destination</button>
+            {(reviews === null) ? <div>Loading...</div> : <Reviews />}
+
+
         </div>
     );
 }

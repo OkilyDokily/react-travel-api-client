@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import './DetailsOrEdit.css';
+import * as actions from '../Actions/index.js';
 import styled from 'styled-components';
 
 
@@ -15,6 +16,7 @@ const Border = styled.div`
   padding: 10px;
   margin: ${props => props.margin};
   margin-left: 40px;
+  align-self: center;
 `;
 
 const Form = styled.form`
@@ -23,20 +25,18 @@ const Form = styled.form`
   background-color: red;
   padding: 10px;
   margin-left: 20px;
- 
+  align-self: center;
 `;
-
-
-
 
 
 function DetailsOrEdit(props) {
     let [showDetails, toggleDetails] = useState(true);
 
     let details = useSelector(state => state.interface.details);
+    let reviews = useSelector(state => state.interface.reviews);
     let cookie = useSelector(state => state.security.cookie);
     let user = useSelector(state => state.security.user);
-
+    let dispatch = useDispatch();
 
 
     function edit(e) {
@@ -48,6 +48,25 @@ function DetailsOrEdit(props) {
             "City": e.target.city.value,
             "Rating": e.target.rating.value
         };
+
+        let detail = {
+            "reviewId": details.reviewId,
+            "userName": user,
+            "country": e.target.country.value,
+            "city": e.target.city.value,
+            "rating": e.target.rating.value
+        }
+        dispatch(actions.details(detail));
+        
+        let newReviews = reviews.map(review => {
+            if (review.reviewId === details.reviewId) {
+                review = detail;
+            }
+            return review;  
+        });
+
+        dispatch(actions.reviews(newReviews));
+
 
         fetch("http://localhost:5004/api/reviews/" + details.reviewId, {
             method: "PUT", mode: "cors", headers: {
@@ -81,7 +100,8 @@ function DetailsOrEdit(props) {
                     <div>Rating</div>
                     <div>{details.rating}</div>
                 </div>
-                <button onClick={() => toggleDetails(!showDetails)}>Edit Details</button>
+
+                {(user === details.userName) ? <button onClick={() => toggleDetails(!showDetails)}>Edit Details</button> : null}
             </Border>
         );
     }
@@ -99,21 +119,21 @@ function DetailsOrEdit(props) {
                 </div>
                 <div>
                     <div>Country</div>
-                    <input type="text" name="country" defaultValue={details.country} />
+                    <input key={Math.random()} type="text" name="country" defaultValue={details.country} />
                 </div>
                 <div>
                     <div>City</div>
-                    <input name="city" type="text" defaultValue={details.city} />
+                    <input key={Math.random()} name="city" type="text" defaultValue={details.city} />
                 </div>
                 <div>
                     <div>Rating</div>
-                    <select name="rating" defaultValue={details.rating}>
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
+                    <select key={Math.random()} name="rating" defaultValue={details.rating}>
+                        <option value="ZERO">0</option>
+                        <option value="ONE">1</option>
+                        <option value="TWO">2</option>
+                        <option value="THREE">3</option>
+                        <option value="FOUR">4</option>
+                        <option value="FIVE">5</option>
                     </select>
                 </div>
                 <button type="submit">Edit</button>

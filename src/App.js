@@ -22,7 +22,7 @@ function App() {
   const Main = styled.div`
   display: flex;
   box-sizing: border-box;
-  background-color: brown;
+  background-color: green;
   align-items: center;
 `;
 
@@ -35,16 +35,22 @@ function App() {
 `;
 
   const Left = styled.div`
-  width: 539px;
+  width: 560px;
   text-align: center;
   background-color: green;
 `;
 
- 
 
-  const Padding = styled.div`
+
+  const Brown = styled.div`
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
     padding: 10px;
     width: 100%;
+    background-color: brown;
+    margin: 10px;
+    align-self: stretch;
   `;
 
   return (
@@ -61,7 +67,10 @@ function App() {
             <Search />
           </Border>
         </Left>
-        <DetailsOrEdit />
+        <Brown>
+          <DetailsOrEdit />
+        </Brown>
+       
       </Main>
     </div>
   );

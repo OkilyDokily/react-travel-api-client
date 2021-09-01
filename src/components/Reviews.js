@@ -11,7 +11,7 @@ Reviews.propTypes = {
 function Reviews(props) {
 
     let dispatch = useDispatch();
-
+    let reviews = useSelector(state => state.interface.reviews);
     function selectDetails(review) {
         //e.preventDefault();
         dispatch(actions.details(review));
@@ -30,7 +30,7 @@ function Reviews(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {props.reviews.map(review => {
+                    {(reviews === null || reviews.length === 0) ? <div>... Loading </div> : reviews.map(review => {
                         return (
                             <tr key={review.reviewId} onClick={() => selectDetails(review)}>
                                 <td>{review.reviewId}</td>
@@ -43,7 +43,6 @@ function Reviews(props) {
                     })}
                 </tbody>
             </table>
-
         </div>
     );
 }

@@ -30,3 +30,13 @@ export function details(details){
         }
     )
 }
+
+export function reviews(reviews) {
+    return (
+        {
+            type: a.REVIEWS,
+            reviews
+        }
+    )
+}
+
