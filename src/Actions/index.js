@@ -40,3 +40,12 @@ export function reviews(reviews) {
     )
 }
 
+export function popular(popular) {
+    return (
+        {
+            type: a.POPULAR,
+            popular
+        }
+    )
+}
+

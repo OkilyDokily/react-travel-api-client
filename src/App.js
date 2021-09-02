@@ -7,6 +7,7 @@ import * as cookies from './components/getCookieHelper.js'
 import * as actions from './Actions/index.js';
 import Header from './components/Header';
 import styled from 'styled-components';
+import Popular from './components/Popular';
 
 function App() {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ function App() {
 
   const Main = styled.div`
   display: flex;
+  justify-content: space-between;
   box-sizing: border-box;
   background-color: green;
   align-items: center;
@@ -35,7 +37,7 @@ function App() {
 `;
 
   const Left = styled.div`
-  width: 560px;
+  width: 660px;
   text-align: center;
   background-color: green;
 `;
@@ -47,7 +49,7 @@ function App() {
     justify-content: flex-start;
     align-items: center;
     padding: 10px;
-    width: 100%;
+    width: 70%;
     background-color: brown;
     margin: 10px;
     align-self: stretch;
@@ -69,6 +71,7 @@ function App() {
         </Left>
         <Brown>
           <DetailsOrEdit />
+          <Popular/>
         </Brown>
        
       </Main>

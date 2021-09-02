@@ -45,7 +45,7 @@ function Create(props) {
             </div>
             <div className="form-group">
                 <label htmlFor="title">City</label>
-                <input name="city" type="text" className="form-control" id="city" placeholder="Country" />
+                <input name="city" type="text" className="form-control" id="city" placeholder="City" />
             </div>
             <div className="form-group">
                 <label htmlFor="title">Rating</label>

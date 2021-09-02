@@ -13,7 +13,6 @@ function Reviews(props) {
     let dispatch = useDispatch();
     let reviews = useSelector(state => state.interface.reviews);
     function selectDetails(review) {
-        //e.preventDefault();
         dispatch(actions.details(review));
     }
 
@@ -30,9 +29,9 @@ function Reviews(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {(reviews === null || reviews.length === 0) ? <div>... Loading </div> : reviews.map(review => {
+                    {(reviews === null) ? <div>... Loading </div> : reviews.map(review => {
                         return (
-                            <tr key={review.reviewId} onClick={() => selectDetails(review)}>
+                            <tr title="click to show details or edit" key={review.reviewId} onClick={() => selectDetails(review)} style={{"cursor":"pointer"}}>
                                 <td>{review.reviewId}</td>
                                 <td>{review.userName}</td>
                                 <td>{review.rating}</td>

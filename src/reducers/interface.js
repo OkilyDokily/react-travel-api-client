@@ -1,10 +1,10 @@
-import { logDOM } from "@testing-library/react";
 import * as a from "../Actions/ActionTypes.js";
 
 
 let start = {
     details: null,
-    reviews: null
+    reviews: null,
+    popular: null,
 };
 
 function reducer(state = start, action) {
@@ -16,6 +16,10 @@ function reducer(state = start, action) {
         case a.REVIEWS:
             return (
                 { ...state, reviews: action.reviews }
+            )
+        case a.POPULAR:
+            return (
+                { ...state, popular: action.popular }
             )
         default:
             return state;
