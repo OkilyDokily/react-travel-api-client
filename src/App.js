@@ -7,7 +7,7 @@ import * as cookies from './components/getCookieHelper.js'
 import * as actions from './Actions/index.js';
 import Header from './components/Header';
 import styled from 'styled-components';
-import Popular from './components/Popular';
+
 
 function App() {
   const dispatch = useDispatch();
@@ -24,13 +24,13 @@ function App() {
   display: flex;
   justify-content: space-between;
   box-sizing: border-box;
-  background-color: green;
+  
   align-items: center;
 `;
 
   const Border = styled.div`
   border: solid 1px black;
-  background-color: red;
+  background-color: #ba9757;
   padding: 10px;
   margin: ${props => props.margin};
   ${props => props.marginBottom};
@@ -39,9 +39,8 @@ function App() {
   const Left = styled.div`
   width: 660px;
   text-align: center;
-  background-color: green;
-`;
 
+`;
 
 
   const Brown = styled.div`
@@ -50,7 +49,7 @@ function App() {
     align-items: center;
     padding: 10px;
     width: 70%;
-    background-color: brown;
+   
     margin: 10px;
     align-self: stretch;
   `;
@@ -69,11 +68,10 @@ function App() {
             <Search />
           </Border>
         </Left>
-        <Brown>
+        <Brown id="brown">
           <DetailsOrEdit />
-          <Popular/>
         </Brown>
-       
+
       </Main>
     </div>
   );

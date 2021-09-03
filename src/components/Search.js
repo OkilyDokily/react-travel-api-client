@@ -4,7 +4,7 @@ import Reviews from './Reviews';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import * as actions from '../Actions/index'
-import Popular from './Popular';
+
 
 Search.propTypes = {
 
@@ -35,12 +35,12 @@ function Search() {
                     console.log(error);
                 })
 
-        if (country !== "" && city == "") {
+        if (country !== "" && city === "") {
             setResultType("country");
         } else if (country !== "" && city !== "") {
             setResultType("country and city");
         }
-        else if (city !== "" && country == "") {
+        else if (city !== "" && country === "") {
             setResultType("all");
         }
         else {
@@ -54,15 +54,19 @@ function Search() {
 
     function getPopular(e) {
         e.preventDefault();
-        let option = document.getElementById("opt").value
-        console.log(option, " dfsao option");
+        let option = document.getElementById("opt").value;
+        if (option === "") {
+            setRandom("Select either rating or number.")
+            return;
+        }
         fetch('http://localhost:5004/api/reviews/popular?option=' + option, { method: "GET", mode: "cors", header: { "Content-Type": "application/json" } })
             .then(
                 response => {
                     if (response.status === 200) {
                         return response.json().then(result => {
                             console.log(result);
-                            setPopular(result);
+                            dispatch(actions.popular(result));
+                            dispatch(actions.details(null));
                         });
                     }
                 }).catch(error => {
@@ -83,7 +87,7 @@ function Search() {
         setRandom("");
     }
 
-  
+
 
     function getRandom() {
         fetch('http://localhost:5004/api/reviews/random', { method: "GET", mode: "cors", headers: { "Content-Type": "text/plain" } })
@@ -122,11 +126,12 @@ function Search() {
                         <option value="number">Number</option>
                     </select>
                 </div>
-                <button type="submit" >Search</button>
-                <button type="button" onClick={getPopular} >Search rating by order of popularity</button>
-                <button type="button" onClick={getRandom} style={{ "width": "100px" }}>Get Random Destination</button>
+                <button style={{width:"65px"}} type="submit" >Search</button>
+                <div style={{ borderRight: "1px solid black" }}></div>
+                <button style={{ width: "76px" }} type="button" onClick={getPopular} >Order cities by popularity</button>
+                <button type="button" onClick={getRandom} style={{ "width": "100px" }}>Get a Random Destination</button>
             </form>
-          
+
             {(random !== "") ? <div title="click to close" onClick={closeRandom} style={{ "cursor": "pointer" }}>{random}<div onClick={closeRandom} style={{ "float": "right", "fontSize": "15px", "cursor": "pointer" }}>x</div></div> : null}
             {(resultType) ? <div>{"The results below are sorted by " + resultType + "."}</div> : null}
             {(reviews === null) ? <div>Loading...</div> : <Reviews />}

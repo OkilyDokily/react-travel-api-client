@@ -1,4 +1,4 @@
-import React, { useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import './DetailsOrEdit.css';
@@ -13,7 +13,7 @@ DetailsOrEdit.propTypes = {
 
 const Border = styled.div`
   border: solid 1px black;
-  background-color: red;
+  background-color: #ba9757;
   padding: 10px;
   margin: ${props => props.margin};
   margin-left: 40px;
@@ -23,7 +23,7 @@ const Border = styled.div`
 const Form = styled.form`
   display: block;
   border: solid 1px black;
-  background-color: red;
+  background-color: #ba9757;
   padding: 10px;
   margin-left: 20px;
   align-self: center;
@@ -35,14 +35,14 @@ function DetailsOrEdit(props) {
     let [showDetails, toggleDetails] = useState(true);
 
     let details = useSelector(state => state.interface.details);
-    
+    let popular = useSelector(state => state.interface.popular);
     let reviews = useSelector(state => state.interface.reviews);
     let cookie = useSelector(state => state.security.cookie);
     let user = useSelector(state => state.security.user);
     let dispatch = useDispatch();
 
     useEffect(() => {
-       toggleDetails(true);
+        toggleDetails(true);
     }, [details])
 
 
@@ -64,12 +64,12 @@ function DetailsOrEdit(props) {
             "rating": e.target.rating.value
         }
         dispatch(actions.details(detail));
-        
+
         let newReviews = reviews.map(review => {
             if (review.reviewId === details.reviewId) {
                 review = detail;
             }
-            return review;  
+            return review;
         });
 
         dispatch(actions.reviews(newReviews));
@@ -95,6 +95,10 @@ function DetailsOrEdit(props) {
         let newReviews = reviews.filter(review => review.reviewId !== details.reviewId);
         dispatch(actions.details(null));
         dispatch(actions.reviews(newReviews));
+    }
+
+    function closePopular() {
+        dispatch(actions.popular(null));
     }
 
     if (showDetails && details) {
@@ -160,6 +164,13 @@ function DetailsOrEdit(props) {
                 <button type="button" onClick={deleteReview}>Delete</button>
                 <button onClick={() => toggleDetails(!showDetails)}>Cancel</button>
             </Form>
+        )
+    }
+    else if (popular) {
+        return (
+            <Border class="showDetails">
+                <ul id="popularlist" onClick={closePopular}>{popular.map((x, index) => { return (<li key={index}>{x}</li>) })}</ul>
+            </Border>
         )
     }
     else {

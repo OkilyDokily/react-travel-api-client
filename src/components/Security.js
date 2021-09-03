@@ -26,8 +26,7 @@ function Security(props) {
     else{
         return(
             <div>
-                <Register toggle={toggle} />
-                
+                <Register toggle={toggle} />  
             </div>
         );
     }

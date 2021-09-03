@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import * as actions from '../Actions/index.js';
+import * as cookies from './getCookieHelper';
 
 LogIn.propTypes = {
 
@@ -24,7 +25,7 @@ function LogIn(props) {
             body: JSON.stringify(body)
         }).then(response => response.json().then(result => {
             document.cookie = "CookieKeyJWT=Bearer " + result.token 
-            dispatch(actions.logIn("karl", "Bearer " + result.token))
+            dispatch(actions.logIn(cookies.getPayLoad(result.token).aud, "Bearer " + result.token))
         }))
         .catch(error => console.error(error));
 
