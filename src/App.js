@@ -42,7 +42,6 @@ function App() {
 
 `;
 
-
   const Brown = styled.div`
     display: flex;
     justify-content: flex-start;
@@ -71,7 +70,6 @@ function App() {
         <Brown id="brown">
           <DetailsOrEdit />
         </Brown>
-
       </Main>
     </div>
   );

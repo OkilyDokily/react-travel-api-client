@@ -10,7 +10,6 @@ DetailsOrEdit.propTypes = {
 
 };
 
-
 const Border = styled.div`
   border: solid 1px black;
   background-color: #ba9757;
@@ -74,24 +73,13 @@ function DetailsOrEdit(props) {
 
         dispatch(actions.reviews(newReviews));
 
+        dispatch(actions.detailsAction(details, body, cookie));
 
-        fetch("http://localhost:5004/api/reviews/" + details.reviewId, {
-            method: "PUT", mode: "cors", headers: {
-                'Content-Type': 'application/json',
-                'Authorization': cookie,
-            },
-            body: JSON.stringify(body)
-        }).then().catch(err => console.log(err));
     }
 
     function deleteReview(e) {
         e.preventDefault();
-        fetch("http://localhost:5004/api/reviews/" + details.reviewId, {
-            method: "DELETE", mode: "cors", headers: {
-                'Content-Type': 'application/json',
-                'Authorization': cookie,
-            }
-        }).then().catch(err => console.log(err));
+        dispatch(actions.deleteAction(details, cookie));
         let newReviews = reviews.filter(review => review.reviewId !== details.reviewId);
         dispatch(actions.details(null));
         dispatch(actions.reviews(newReviews));

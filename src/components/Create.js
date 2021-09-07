@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as Cookies from './getCookieHelper.js';
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
+import * as actions from '../Actions/index.js';
 
 Create.propTypes = {
 
@@ -10,32 +11,20 @@ Create.propTypes = {
 function Create(props) {
     let cookie = useSelector(state => state.security.cookie);
     let user = useSelector(state => state.security.user);
+    let dispatch = useDispatch();
     function create(e) {
 
         e.preventDefault();
-        //const cookie = Cookies.getCookie("CookieKeyJWT");
-        console.log(user)
-        console.log(e.target.country.value)
-        console.log(e.target.city.value)
-        console.log(e.target.rating.value)
+      
         let body = {
             "UserName": user,
             "Country": e.target.country.value,
             "City": e.target.city.value,
             "Rating": e.target.rating.value
         };
-        console.log(JSON.stringify(body));
-        fetch("http://localhost:5004/api/reviews", {
-            method: "POST", mode:"cors" , headers: {
-                'Content-Type': 'application/json',
-                'Authorization': cookie,
-            },
-            body: JSON.stringify(body)
-        }).then().catch(err => console.log(err));
+        dispatch(actions.createAction(body,cookie))
 
     }
-
-
 
     return (
         <form onSubmit={create}>

@@ -5,6 +5,7 @@ let start = {
     details: null,
     reviews: null,
     popular: null,
+    random: null
 };
 
 function reducer(state = start, action) {
@@ -20,6 +21,10 @@ function reducer(state = start, action) {
         case a.POPULAR:
             return (
                 { ...state, popular: action.popular }
+            )
+        case a.RANDOM:
+            return (
+                { ...state, random: action.random }
             )
         default:
             return state;

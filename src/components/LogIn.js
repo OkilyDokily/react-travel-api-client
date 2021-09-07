@@ -17,18 +17,7 @@ function LogIn(props) {
             "name": e.target.user.value,
             "password": e.target.password.value,
         };
-
-        fetch("http://localhost:5004/api/security/login", {
-            method: "POST", headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(body)
-        }).then(response => response.json().then(result => {
-            document.cookie = "CookieKeyJWT=Bearer " + result.token 
-            dispatch(actions.logIn(cookies.getPayLoad(result.token).aud, "Bearer " + result.token))
-        }))
-        .catch(error => console.error(error));
-
+        dispatch(actions.logInAction(body));
     }
 
     return (

@@ -14,7 +14,7 @@ function Search() {
 
     let dispatch = useDispatch();
     let reviews = useSelector(state => state.interface.reviews);
-    let [random, setRandom] = useState("");
+    let random = useSelector(state => state.interface.random);
     useEffect(() => {
         search("", "", "");
     }, []);
@@ -22,19 +22,7 @@ function Search() {
     let [resultType, setResultType] = useState("");
 
     function search(country, city, option) {
-        fetch('http://localhost:5004/api/reviews?country=' + country + "&city=" + city + "&option=" + option, { method: "GET", mode: "cors", header: { "Content-Type": "application/json" } })
-            .then(
-                response => {
-                    if (response.status === 200) {
-                        return response.json().then(result => {
-                            console.log(result);
-                            dispatch(actions.reviews(result))
-                        });
-                    }
-                }).catch(error => {
-                    console.log(error);
-                })
-
+        dispatch(actions.searchAction(country, city, option));
         if (country !== "" && city === "") {
             setResultType("country");
         } else if (country !== "" && city !== "") {
@@ -49,29 +37,16 @@ function Search() {
         if (option !== "") {
             setResultType(option);
         }
-
     }
 
     function getPopular(e) {
         e.preventDefault();
         let option = document.getElementById("opt").value;
         if (option === "") {
-            setRandom("Select either rating or number.")
+            dispatch(actions.random("Select either rating or number."));
             return;
         }
-        fetch('http://localhost:5004/api/reviews/popular?option=' + option, { method: "GET", mode: "cors", header: { "Content-Type": "application/json" } })
-            .then(
-                response => {
-                    if (response.status === 200) {
-                        return response.json().then(result => {
-                            console.log(result);
-                            dispatch(actions.popular(result));
-                            dispatch(actions.details(null));
-                        });
-                    }
-                }).catch(error => {
-                    console.log(error);
-                })
+        dispatch(actions.popularAction(option));
     }
 
 
@@ -84,25 +59,12 @@ function Search() {
     }
 
     function closeRandom() {
-        setRandom("");
+        dispatch(actions.random(""));
     }
 
 
-
     function getRandom() {
-        fetch('http://localhost:5004/api/reviews/random', { method: "GET", mode: "cors", headers: { "Content-Type": "text/plain" } })
-            .then(
-                response => {
-                    if (response.status === 200) {
-                        return response.text().then(function (data) {
-                            setRandom(data);
-                        })
-                    };
-
-                }
-            ).catch(error => {
-                console.log(error);
-            })
+        dispatch(actions.randomAction());
     }
 
     return (

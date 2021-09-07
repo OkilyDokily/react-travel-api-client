@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import { useDispatch } from 'react-redux';
+import * as actions from '../Actions/index.js';
 Register.propTypes = {
 
 };
 
 function Register(props) {
+    let dispatch = useDispatch();
     function handleSubmit(e) {
         e.preventDefault();
 
@@ -14,25 +16,15 @@ function Register(props) {
             "password": e.target.password.value,
             "confirmPassword": e.target.confirmPassword.value
         };
-        console.log(body);
-        fetch("http://localhost:5004/api/security/register", {
-            method: "POST", headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(body)
-        }).then(response => response.json(result => {
-            document.cookie = "CookieKeyJWT=" + result + ";"
-            console.log(result)
-        })).catch(error => console.log(error));
+        dispatch(actions.registerAction(body));
         props.toggle();
-
     }
 
     return (
         <form onSubmit={handleSubmit}>
             <div className="form-group">
                 <label htmlFor="exampleInputUser1">User</label>
-                <input style={{ width: "100px" }}  name="user" className="form-control" id="exampleInputUser1" placeholder="Enter User" />
+                <input style={{ width: "100px" }} name="user" className="form-control" id="exampleInputUser1" placeholder="Enter User" />
             </div>
             <div className="form-group">
                 <label htmlFor="exampleInputPassword1">Password</label>
